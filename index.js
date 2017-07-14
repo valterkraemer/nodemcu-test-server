@@ -1,19 +1,3 @@
-/*const express = require('express'); 
-const app = express();
-const port = process.env.PORT || 3000;
-const WebSocketServer = require('websocket').server;
-
-app.use(express.static('client'));
-
-app.listen(port, (err) => {  
-  if (err) {
-    return console.log('something bad happened', err);
-  }
-
-  console.log(`server is listening on ${port}`);
-});
-*/
-
 const express = require('express');
 const http = require('http');
 const url = require('url');
@@ -24,6 +8,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 app.get('/ping', ping);
+app.get('/headers', headers);
 
 app.use(express.static('client'));
 
@@ -62,4 +47,8 @@ function ping(req, res) {
   wss.clients.forEach(function(client) {
     client.send('ping');    
   });
+}
+
+function headers(req, res) {
+  res.send(req.headers);
 }
