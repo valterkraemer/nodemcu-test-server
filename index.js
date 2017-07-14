@@ -21,6 +21,8 @@ const wsServer = require('ws').Server;
 
 const app = express();
 
+app.get('/ping', ping);
+
 app.use(express.static('client'));
 
 const server = http.createServer(app);
@@ -51,3 +53,11 @@ wss.on('connection', function(ws, req) {
 server.listen(8080, function() {
   console.log('Listening on %d', server.address().port);
 });
+
+function ping(req, res) {
+  res.send('pong');
+
+  wss.clients.forEach(function(client) {
+    client.send('ping');    
+  });
+}
