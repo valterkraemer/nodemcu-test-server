@@ -50,5 +50,11 @@ function ping(req, res) {
 }
 
 function headers(req, res) {
-  res.send(req.headers);
+  var html = '';
+
+  Object.keys(req.headers).forEach(function(key) {
+    html += key + ': ' + req.headers[key] + '<br>';
+  });
+
+  res.send(html);
 }
