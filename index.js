@@ -19,6 +19,8 @@ const http = require('http');
 const url = require('url');
 const wsServer = require('ws').Server;
 
+const port = process.env.PORT || 3000;
+
 const app = express();
 
 app.get('/ping', ping);
@@ -50,7 +52,7 @@ wss.on('connection', function(ws, req) {
   ws.send('something');
 });
 
-server.listen(8080, function() {
+server.listen(port, function() {
   console.log('Listening on %d', server.address().port);
 });
 
